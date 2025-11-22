@@ -1705,9 +1705,11 @@ def forgot_password(request):
                     recipient_list=[email],
                     fail_silently=False,
                 )
-            except Exception:
-                messages.error(request, "Unable to send OTP. Please try again.")
+            except Exception as e:
+                print("EMAIL ERROR:", e)
+                messages.error(request, f"Email error: {e}")
                 return redirect("forgot_password")
+
 
             request.session["reset_user_id"] = user.id
             messages.success(request, "OTP sent to your email.")
