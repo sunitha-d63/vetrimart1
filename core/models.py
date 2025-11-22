@@ -414,16 +414,23 @@ class Order(models.Model):
                 return 0 if num == 12 else num
             return 12 if num == 12 else num + 12
 
+        # Use ORDER DATE instead of today
+        order_dt = timezone.localtime(self.created_at)
+        order_date = order_dt.date()
+
         try:
             start_raw, _ = self.delivery_slot.split(" - ")
             start_hour = convert_to_24h(start_raw)
         except:
-            start_hour = 10
+            start_hour = order_dt.hour  # fallback
 
-        today = timezone.localtime().date()
         slot_start = timezone.make_aware(
-            datetime(today.year, today.month, today.day, start_hour, 0)
+            datetime(order_date.year, order_date.month, order_date.day, start_hour, 0)
         )
+
+        # If slot time is earlier than the order time → move to next day
+        if slot_start < order_dt:
+            slot_start += timedelta(days=1)
 
         final_eta = slot_start + timedelta(hours=delay_hours)
         self.expected_delivery_time = final_eta
