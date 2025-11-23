@@ -31,7 +31,7 @@ footer {
 .nav-brand {
   font-size: 30px;
   font-weight: bold;
-  color: white;
+  color: #f4f26e;
   text-decoration: none;
 }
 .nav-toggle {
@@ -135,10 +135,6 @@ footer {
   color: #fff;
 }
 
-/* .track-menu a:hover,
-.user-menu a:hover {
-  background: #f2f2f2;
-} */
 .search-input-wrap {
     position: relative;
     width: 100%;

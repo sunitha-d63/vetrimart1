@@ -459,11 +459,13 @@ def search_products(request):
         'guest_wishlist_ids': guest_wishlist_ids if not request.user.is_authenticated else []
     })
 
+from django.db.models import Q, F, ExpressionWrapper, DecimalField
 
 def our_products(request):
     products = Product.objects.all()
     categories = Category.objects.all()
 
+    # GET parameters
     keyword = request.GET.get('q', '').strip()
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
@@ -473,11 +475,13 @@ def our_products(request):
 
     selected_category = None
 
+    # Category filter
     if category_param and category_param.lower() != "none":
         selected_category = Category.objects.filter(name__iexact=category_param).first()
         if selected_category:
             products = products.filter(category=selected_category)
 
+    # Keyword search
     if keyword:
         products = products.filter(
             Q(title__icontains=keyword) |
@@ -485,51 +489,59 @@ def our_products(request):
             Q(category__name__icontains=keyword)
         )
 
-    if min_price:
-        products = products.filter(base_price__gte=min_price)
-    if max_price:
-        products = products.filter(base_price__lte=max_price)
+    # --------------------------------------------
+    # ✅ Annotate final discounted price
+    # --------------------------------------------
+    products = products.annotate(
+        final_price=ExpressionWrapper(
+            F("base_price") - (F("base_price") * F("discount_percent") / 100),
+            output_field=DecimalField(max_digits=10, decimal_places=2)
+        )
+    )
 
+    # Price filtering using final discounted price
+    if min_price:
+        products = products.filter(final_price__gte=min_price)
+    if max_price:
+        products = products.filter(final_price__lte=max_price)
+
+    # Weight filter
     if weight_filter:
         products = products.filter(weight_options__icontains=weight_filter)
 
+    # Sorting
     if sort == "price_asc":
-        products = products.order_by("base_price")
+        products = products.order_by("final_price")
     elif sort == "price_desc":
-        products = products.order_by("-base_price")
+        products = products.order_by("-final_price")
     elif sort == "name_asc":
         products = products.order_by("title")
     elif sort == "name_desc":
         products = products.order_by("-title")
 
-
+    # Wishlist handling
     if request.user.is_authenticated:
         user_wishlist_ids = request.user.wishlist.values_list("id", flat=True)
-        guest_wishlist_ids = []  
+        guest_wishlist_ids = []
 
         for p in products:
             p.in_wishlist = p.id in user_wishlist_ids
 
     else:
-
         guest_wishlist_ids = request.session.get("wishlist", [])
-
         for p in products:
             p.in_wishlist = p.id in guest_wishlist_ids
 
-
     return render(request, 'core/our_products.html', {
-        'products': products,
-        'categories': categories,
-
-        'keyword': keyword,
-        'min_price': min_price or '',
-        'max_price': max_price or '',
-        'weight_filter': weight_filter,
-        'selected_category': selected_category.name if selected_category else None,
-        'sort': sort,
-
-        'guest_wishlist_ids': guest_wishlist_ids,  
+        "products": products,
+        "categories": categories,
+        "keyword": keyword,
+        "min_price": min_price or "",
+        "max_price": max_price or "",
+        "weight_filter": weight_filter,
+        "selected_category": selected_category.name if selected_category else None,
+        "sort": sort,
+        "guest_wishlist_ids": guest_wishlist_ids,
     })
 
 def is_admin(user):

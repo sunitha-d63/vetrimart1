@@ -2,7 +2,6 @@
   <div class="container">
     <div class="row gy-4 text-center text-md-start">
 
-      <!-- Brand Section -->
       <div class="col-12 col-md-4">
         <h4 class="fw-bold mb-3 footerlink fs-4">🛒 VetriMart</h4>
         <p class="fs-6 lh-lg">
@@ -11,7 +10,6 @@
         </p>
       </div>
 
-      <!-- Quick Links -->
       <div class="col-12 col-md-4">
         <h4 class="fw-bold mb-3 footerlink fs-4">Quick Links</h4>
         <ul class="list-unstyled m-0 p-0">
@@ -24,24 +22,15 @@
           <li class="mb-2">
             <a href="{% url 'contact_page' %}" class="footer-link text-decoration-none text-light">📞 Contact</a>
           </li>
-
-          {% if user.is_authenticated %}
           <li class="mb-2">
-            <a href="{% url 'logout' %}" class="footer-link text-decoration-none text-light">🚪 Logout</a>
-          </li>
-          {% else %}
-          <li class="mb-2">
-            <a href="{% url 'login' %}" class="footer-link text-decoration-none text-light">🔑 Login</a>
-          </li>
-          {% endif %}
+    <a href="{% url 'features_page' %}" class="footer-link text-decoration-none text-light">✨ Features</a>
+</li>
         </ul>
       </div>
 
-      <!-- Contact Details -->
       <div class="col-12 col-md-4">
      <h4 class="fw-bold mb-3 footerlink fs-4">Contact Us</h4>
 
-<!-- Address -->
 <p class="fs-6 mb-1">
   📍 
   <a href="https://maps.google.com/?q=123+Vetri+Street,+Chennai,+India" 
@@ -51,7 +40,6 @@
   </a>
 </p>
 
-<!-- Email -->
 <p class="fs-6 mb-1">
   📧 
   <a href="mailto:support@vetrimart.com" 
@@ -60,7 +48,6 @@
   </a>
 </p>
 
-<!-- Phone -->
 <p class="fs-6 mb-3">
   📞 
   <a href="tel:+919876543210" 
@@ -68,7 +55,6 @@
     +91 7397654827
   </a>
 </p>
-
 
         <div class="d-flex justify-content-center justify-content-md-start gap-3">
   <a href="https://www.facebook.com/yourpage" 

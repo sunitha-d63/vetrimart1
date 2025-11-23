@@ -34,7 +34,6 @@
   50% { transform: scale(1.05); }
 }
 
-/* ======= Hero ======= */
 .hero-heading {
   font-size: 42px;
   font-weight: 700;
@@ -54,7 +53,6 @@
   font-weight: 500;
 }
 
-/* ======= Buttons ======= */
 .shop-btn {
   margin-top: 20px;
   background: #ffcc00 !important;
@@ -71,7 +69,6 @@
 .shop-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 14px rgba(0,0,0,0.25); opacity: 0.9; }
 .shop-btn:active { transform: translateY(1px); }
 
-/* Another variant you used later (kept for use) */
 .shop-btn.alt {
   background: #fff;
   padding: 10px 22px;
@@ -479,27 +476,22 @@
 .scrolling-gallery img:hover { transform: scale(1.1); }
 @keyframes scrollLeft { from{transform:translateX(0);} to{transform:translateX(-50%);} }
 
-/* ======= Promo color helper classes ======= */
 .blue-bg { background: linear-gradient(#b9edff,#e7faff); }
 .yellow-bg { background: linear-gradient(#ffe074,#fff2c9); }
 
-/* Offers / promo images base */
 .offers-img { max-width:230px; width:100%; height:auto; object-fit:contain; }
 
-/* Category slider */
 .category-slider-wrapper { overflow:hidden; position:relative; }
 .category-slider { display:flex; gap:20px; scroll-behavior:smooth; overflow-x:auto; padding-bottom:10px; }
 .category-slider::-webkit-scrollbar { display:none; }
 .category-item { min-width:260px; }
 
-/* Tilt / parallax utilities */
 .tilt-card { transition: transform 0.2s ease, box-shadow 0.2s ease; transform-style:preserve-3d; }
 .tilt-card:hover { box-shadow: 0 15px 35px rgba(0,0,0,0.12); }
 .parallax { transition: transform 0.4s ease-out; }
 
-/* Section heading variant */
 .section-heading {
-  font-size: 36px; font-weight: 800; color: #efdd66 !important; text-transform: uppercase;
+  font-size: 36px; font-weight: 800; color: #f4f26e !important; text-transform: uppercase;
 }
 .section-heading span {
   padding: 5px 12px; border-radius: 6px; color: #5ab892; font-style: italic;
@@ -666,13 +658,12 @@
   }
 
   .blob { opacity: 0.25; }
-  /* Offers img */
+
   .offers-img {
     max-width: 200px;
     margin: 15px auto 0;
   }
 
-  /* Offer wrap */
   .offer-img-wrap {
     width: 110px;
     height: 110px;

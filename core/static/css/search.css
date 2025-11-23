@@ -1,8 +1,6 @@
-/* ============================
-   🔥 FIX: Equal Card Height
-   ============================ */
+
 .search-card {
-    height: 100%;              /* stretch full height */
+    height: 100%;   
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -15,7 +13,6 @@
     padding-bottom: 10px;
 }
 
-/* Add flex to column wrapper */
 .row > .col {
     display: flex;
 }
@@ -23,24 +20,14 @@
     width: 100%;
 }
 
-/* ============================
-   IMAGE — fixed height
-   ============================ */
 .search-img {
     width: 100%;
-    height: 230px;              /* ↓ slightly smaller so content fits better */
+    height: 230px;    
     object-fit: cover;
     border-bottom: 1px solid #eee;
     transition: 0.3s ease;
 }
 
-.search-card:hover .search-img {
-    transform: scale(1.06);
-}
-
-/* ============================
-   Wishlist button
-   ============================ */
 .wishlist-btn {
     background: rgba(255,255,255,0.9);
     border: none;
@@ -48,16 +35,10 @@
     font-size: 18px;
     border-radius: 50%;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    transition: 0.25s;
+
 }
 
-.wishlist-btn:hover {
-    transform: scale(1.15);
-}
 
-/* ============================
-   Text styling
-   ============================ */
 .search-card h5 {
     font-size: 1.1rem;
     letter-spacing: 0.3px;
@@ -67,7 +48,6 @@
     font-size: 0.95rem;
 }
 
-/* Make content block stretch & align nicely */
 .search-card .p-3 {
     flex-grow: 1;
     display: flex;
